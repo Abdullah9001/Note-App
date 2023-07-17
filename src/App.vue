@@ -1,48 +1,18 @@
-<script setup>
-import { ref } from "vue";
-const count = ref(0);
-
-const increment = () => {
-  count.value = count.value + 1;
-};
-const decrement = () => {
-  count.value = count.value - 1;
-};
-</script>
+<script setup></script>
 
 <template>
-  <main>
-    <div>
-      <h4>This current counter is..</h4>
-      <h1>{{ count }}</h1>
-      <button @click="decrement">-</button>
-      <button @click="increment">+</button>
+  <main class="container">
+    <div class="header">
+      <h1>Notes</h1>
+      <h1>+</h1>
+    </div>
+    <div class="cards-containet">
+      <div class="card">
+        <p class="main-text">this is my new note</p>
+        <p class="date">the date</p>
+      </div>
     </div>
   </main>
 </template>
 
-<style lang="scss" scoped>
-main {
-  background-color: aliceblue;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  div {
-    text-align: center;
-    h4 {
-      font-size: 2rem;
-    }
-    h1 {
-      font-size: 3rem;
-    }
-
-    button {
-      padding: 1px 25px;
-      margin: 5px;
-      font-size: 40px;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
