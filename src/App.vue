@@ -18,7 +18,7 @@ const addNote = () => {
   notes.value.push({
     id: Math.floor(Math.random() * 1000000),
     text: newNote.value,
-    date: new Date(),
+    date: new Date().toLocaleDateString("en-US"),
     backgroundColor: getDarkColor(),
   });
   showModal.value = false;
@@ -43,16 +43,20 @@ const addNote = () => {
     </div>
     <div class="container">
       <header>
-        {{ notes }}
         <h1>Notes</h1>
         <button @click="showModal = true">
           <Icon icon="ic:outline-plus" width="25" />
         </button>
       </header>
       <div class="cards-container">
-        <div class="card">
-          <p class="main-text">this is my new note</p>
-          <p class="date">the date</p>
+        <div
+          v-for="note in notes"
+          :key="note.id"
+          class="card"
+          :style="{ backgroundColor: note.backgroundColor }"
+        >
+          <p class="main-text">{{ note.text }}</p>
+          <p class="date">{{ note.date }}</p>
         </div>
       </div>
     </div>
@@ -116,6 +120,7 @@ main {
       h1 {
         color: #0a3d62;
         font-size: 75px;
+        font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
       }
       button {
