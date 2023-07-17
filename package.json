@@ -11,6 +11,7 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.1.1",
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.63.6",
     "vite": "^4.3.9"
