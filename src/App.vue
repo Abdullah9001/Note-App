@@ -1,13 +1,32 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+import { ref } from "vue";
+
+const showModal = ref(false);
+const newNote = ref("");
 </script>
 
 <template>
   <main>
+    <div v-show="showModal" class="overlay">
+      <div class="modal">
+        <textarea
+          v-model="newNote"
+          name="note"
+          id="note"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <button>Add Note</button>
+        <button @click="showModal = false" class="close">Close</button>
+      </div>
+    </div>
     <div class="container">
       <header>
         <h1>Notes</h1>
-        <button><Icon icon="ic:outline-plus" width="25" /></button>
+        <button @click="showModal = true">
+          <Icon icon="ic:outline-plus" width="25" />
+        </button>
       </header>
       <div class="cards-container">
         <div class="card">
@@ -25,6 +44,43 @@ main {
   width: 100vw;
   background-color: #dfe4ea;
 
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.77);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .modal {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+      padding: 30px;
+      position: relative;
+      border-radius: 15px;
+      background-color: #fff;
+      textarea {
+        outline: none;
+        border: 3px solid black;
+      }
+      button {
+        padding: 10px 20px;
+        margin-top: 15px;
+        font-size: 20px;
+        width: 100%;
+        background-color: #0a3d62;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+      }
+      .close {
+        background-color: #ff6b81;
+      }
+    }
+  }
+
   .container {
     max-width: 1000px;
     padding: 10px;
@@ -34,6 +90,7 @@ main {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 20px;
 
       h1 {
         color: #0a3d62;
