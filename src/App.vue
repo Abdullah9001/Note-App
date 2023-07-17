@@ -4,6 +4,26 @@ import { ref } from "vue";
 
 const showModal = ref(false);
 const newNote = ref("");
+const notes = ref([]);
+
+function getDarkColor() {
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += Math.floor(Math.random() * 10);
+  }
+  return color;
+}
+
+const addNote = () => {
+  notes.value.push({
+    id: Math.floor(Math.random() * 1000000),
+    text: newNote.value,
+    date: new Date(),
+    backgroundColor: getDarkColor(),
+  });
+  showModal.value = false;
+  newNote.value = "";
+};
 </script>
 
 <template>
@@ -17,12 +37,13 @@ const newNote = ref("");
           cols="30"
           rows="10"
         ></textarea>
-        <button>Add Note</button>
+        <button @click="addNote">Add Note</button>
         <button @click="showModal = false" class="close">Close</button>
       </div>
     </div>
     <div class="container">
       <header>
+        {{ notes }}
         <h1>Notes</h1>
         <button @click="showModal = true">
           <Icon icon="ic:outline-plus" width="25" />
