@@ -30,6 +30,10 @@ const addNote = () => {
   newNote.value = "";
   errMessage.value = "";
 };
+
+const removeNote = (id) => {
+  notes.value = notes.value.filter((note) => note.id !== id);
+};
 </script>
 
 <template>
@@ -63,7 +67,12 @@ const addNote = () => {
           :style="{ backgroundColor: note.backgroundColor }"
         >
           <p class="main-text">{{ note.text }}</p>
-          <p class="date">{{ note.date }}</p>
+          <div class="foot">
+            <p class="date">{{ note.date }}</p>
+            <button @click="removeNote(note.id)">
+              <Icon icon="mdi:remove" width="15" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -159,9 +168,22 @@ main {
         margin-right: 20px;
         margin-bottom: 20px;
         padding: 10px;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.77);
         p {
           color: #fff;
           font-size: 12px;
+        }
+        .foot {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          button {
+            color: white;
+            border-radius: 100%;
+            background-color: #0a3d62;
+            padding: 5px;
+            cursor: pointer;
+          }
         }
       }
     }
