@@ -4,6 +4,7 @@ import { ref } from "vue";
 
 const showModal = ref(false);
 const newNote = ref("");
+const errMessage = ref("");
 const notes = ref([]);
 
 function getDarkColor() {
@@ -15,28 +16,34 @@ function getDarkColor() {
 }
 
 const addNote = () => {
+  if (newNote.value.length < 10) {
+    return (errMessage.value = "Note needs to be 10 characters or more!");
+  }
   notes.value.push({
     id: Math.floor(Math.random() * 1000000),
     text: newNote.value,
     date: new Date().toLocaleDateString("en-US"),
     backgroundColor: getDarkColor(),
   });
+
   showModal.value = false;
   newNote.value = "";
+  errMessage.value = "";
 };
 </script>
 
 <template>
   <main>
-    <div v-show="showModal" class="overlay">
+    <div v-if="showModal" class="overlay">
       <div class="modal">
         <textarea
-          v-model="newNote"
+          v-model.trim="newNote"
           name="note"
           id="note"
           cols="30"
           rows="10"
         ></textarea>
+        <p class="errMsg" v-if="errMessage">{{ errMessage }}</p>
         <button @click="addNote">Add Note</button>
         <button @click="showModal = false" class="close">Close</button>
       </div>
@@ -81,7 +88,7 @@ main {
     .modal {
       display: flex;
       flex-direction: column;
-      width: 400px;
+      width: 450px;
       padding: 30px;
       position: relative;
       border-radius: 15px;
@@ -89,6 +96,10 @@ main {
       textarea {
         outline: none;
         border: 3px solid black;
+        padding: 10px;
+      }
+      .errMsg {
+        color: #ff6b81;
       }
       button {
         padding: 10px 20px;
